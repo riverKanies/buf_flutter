@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:buf_flutter/src/rust/api/simple.dart';
+// import 'package:buf_flutter/src/rust/api/simple.dart';
 import 'package:buf_flutter/src/rust/frb_generated.dart';
 import 'package:buf_flutter/src/rust/api/bitcoin_uri.dart';
 
