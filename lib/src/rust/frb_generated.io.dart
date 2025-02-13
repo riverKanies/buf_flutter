@@ -3,26 +3,52 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/bitcoin_uri.dart';
 import 'api/simple.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
+import 'lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 
-abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
-  RustLibApiImplPlatform({
+abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
+  coreApiImplPlatform({
     required super.handler,
     required super.wire,
     required super.generalizedFrbRustBinding,
     required super.portManager,
   });
 
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_UriPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUriPtr;
+
+  @protected
+  Uri dco_decode_RustOpaque_bitcoin_uri_ffiuriUri(dynamic raw);
+
   @protected
   String dco_decode_String(dynamic raw);
 
   @protected
+  FfiBufUri dco_decode_box_autoadd_ffi_buf_uri(dynamic raw);
+
+  @protected
+  BigInt dco_decode_box_autoadd_u_64(dynamic raw);
+
+  @protected
+  FfiBufUri dco_decode_ffi_buf_uri(dynamic raw);
+
+  @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
+
+  @protected
+  String? dco_decode_opt_String(dynamic raw);
+
+  @protected
+  BigInt? dco_decode_opt_box_autoadd_u_64(dynamic raw);
+
+  @protected
+  BigInt dco_decode_u_64(dynamic raw);
 
   @protected
   int dco_decode_u_8(dynamic raw);
@@ -31,10 +57,34 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void dco_decode_unit(dynamic raw);
 
   @protected
+  BigInt dco_decode_usize(dynamic raw);
+
+  @protected
+  Uri sse_decode_RustOpaque_bitcoin_uri_ffiuriUri(SseDeserializer deserializer);
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer);
 
   @protected
+  FfiBufUri sse_decode_box_autoadd_ffi_buf_uri(SseDeserializer deserializer);
+
+  @protected
+  BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer);
+
+  @protected
+  FfiBufUri sse_decode_ffi_buf_uri(SseDeserializer deserializer);
+
+  @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
+
+  @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer);
+
+  @protected
+  BigInt? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer);
+
+  @protected
+  BigInt sse_decode_u_64(SseDeserializer deserializer);
 
   @protected
   int sse_decode_u_8(SseDeserializer deserializer);
@@ -43,23 +93,128 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_decode_unit(SseDeserializer deserializer);
 
   @protected
+  BigInt sse_decode_usize(SseDeserializer deserializer);
+
+  @protected
   int sse_decode_i_32(SseDeserializer deserializer);
 
   @protected
   bool sse_decode_bool(SseDeserializer deserializer);
 
   @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_String(String raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_list_prim_u_8_strict(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_ffi_buf_uri> cst_encode_box_autoadd_ffi_buf_uri(
+      FfiBufUri raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_ffi_buf_uri();
+    cst_api_fill_to_wire_ffi_buf_uri(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint64> cst_encode_box_autoadd_u_64(BigInt raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return wire.cst_new_box_autoadd_u_64(cst_encode_u_64(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_list_prim_u_8_strict(
+      Uint8List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_8_strict(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_opt_String(
+      String? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_String(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint64> cst_encode_opt_box_autoadd_u_64(BigInt? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_u_64(raw);
+  }
+
+  @protected
+  int cst_encode_u_64(BigInt raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.toSigned(64).toInt();
+  }
+
+  @protected
+  int cst_encode_usize(BigInt raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.toSigned(64).toInt();
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_ffi_buf_uri(
+      FfiBufUri apiObj, ffi.Pointer<wire_cst_ffi_buf_uri> wireObj) {
+    cst_api_fill_to_wire_ffi_buf_uri(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_ffi_buf_uri(
+      FfiBufUri apiObj, wire_cst_ffi_buf_uri wireObj) {
+    wireObj.field0 = cst_encode_RustOpaque_bitcoin_uri_ffiuriUri(apiObj.field0);
+  }
+
+  @protected
+  int cst_encode_RustOpaque_bitcoin_uri_ffiuriUri(Uri raw);
+
+  @protected
+  int cst_encode_u_8(int raw);
+
+  @protected
+  void cst_encode_unit(void raw);
+
+  @protected
+  void sse_encode_RustOpaque_bitcoin_uri_ffiuriUri(
+      Uri self, SseSerializer serializer);
+
+  @protected
   void sse_encode_String(String self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_ffi_buf_uri(
+      FfiBufUri self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_ffi_buf_uri(FfiBufUri self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_prim_u_8_strict(
       Uint8List self, SseSerializer serializer);
 
   @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_64(BigInt? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_u_64(BigInt self, SseSerializer serializer);
+
+  @protected
   void sse_encode_u_8(int self, SseSerializer serializer);
 
   @protected
   void sse_encode_unit(void self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_usize(BigInt self, SseSerializer serializer);
 
   @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
@@ -70,15 +225,277 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
 // Section: wire_class
 
-class RustLibWire implements BaseWire {
-  factory RustLibWire.fromExternalLibrary(ExternalLibrary lib) =>
-      RustLibWire(lib.ffiDynamicLibrary);
+// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_positional_boolean_parameters, annotate_overrides, constant_identifier_names
+// AUTO GENERATED FILE, DO NOT EDIT.
+//
+// Generated by `package:ffigen`.
+// ignore_for_file: type=lint
+
+/// generated by flutter_rust_bridge
+class coreWire implements BaseWire {
+  factory coreWire.fromExternalLibrary(ExternalLibrary lib) =>
+      coreWire(lib.ffiDynamicLibrary);
 
   /// Holds the symbol lookup function.
   final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
       _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
-  RustLibWire(ffi.DynamicLibrary dynamicLibrary)
-      : _lookup = dynamicLibrary.lookup;
+  coreWire(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
+
+  /// The symbols are looked up with [lookup].
+  coreWire.fromLookup(
+      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+          lookup)
+      : _lookup = lookup;
+
+  void store_dart_post_cobject(
+    DartPostCObjectFnType ptr,
+  ) {
+    return _store_dart_post_cobject(
+      ptr,
+    );
+  }
+
+  late final _store_dart_post_cobjectPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>(
+          'store_dart_post_cobject');
+  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
+      .asFunction<void Function(DartPostCObjectFnType)>();
+
+  WireSyncRust2DartDco wire__crate__api__bitcoin_uri__ffi_buf_uri_address(
+    ffi.Pointer<wire_cst_ffi_buf_uri> that,
+  ) {
+    return _wire__crate__api__bitcoin_uri__ffi_buf_uri_address(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_addressPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_buf_uri>)>>(
+      'frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_address');
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_address =
+      _wire__crate__api__bitcoin_uri__ffi_buf_uri_addressPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_buf_uri>)>();
+
+  WireSyncRust2DartDco wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_sats(
+    ffi.Pointer<wire_cst_ffi_buf_uri> that,
+  ) {
+    return _wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_sats(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_satsPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_buf_uri>)>>(
+      'frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_sats');
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_sats =
+      _wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_satsPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_buf_uri>)>();
+
+  WireSyncRust2DartDco wire__crate__api__bitcoin_uri__ffi_buf_uri_as_string(
+    ffi.Pointer<wire_cst_ffi_buf_uri> that,
+  ) {
+    return _wire__crate__api__bitcoin_uri__ffi_buf_uri_as_string(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_as_stringPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_buf_uri>)>>(
+      'frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_as_string');
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_as_string =
+      _wire__crate__api__bitcoin_uri__ffi_buf_uri_as_stringPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_buf_uri>)>();
+
+  WireSyncRust2DartDco wire__crate__api__bitcoin_uri__ffi_buf_uri_label(
+    ffi.Pointer<wire_cst_ffi_buf_uri> that,
+  ) {
+    return _wire__crate__api__bitcoin_uri__ffi_buf_uri_label(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_labelPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_buf_uri>)>>(
+      'frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_label');
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_label =
+      _wire__crate__api__bitcoin_uri__ffi_buf_uri_labelPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_buf_uri>)>();
+
+  WireSyncRust2DartDco wire__crate__api__bitcoin_uri__ffi_buf_uri_message(
+    ffi.Pointer<wire_cst_ffi_buf_uri> that,
+  ) {
+    return _wire__crate__api__bitcoin_uri__ffi_buf_uri_message(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_messagePtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_buf_uri>)>>(
+      'frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_message');
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_message =
+      _wire__crate__api__bitcoin_uri__ffi_buf_uri_messagePtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_buf_uri>)>();
+
+  WireSyncRust2DartDco wire__crate__api__bitcoin_uri__ffi_buf_uri_parse(
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> uri,
+  ) {
+    return _wire__crate__api__bitcoin_uri__ffi_buf_uri_parse(
+      uri,
+    );
+  }
+
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_parsePtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_parse');
+  late final _wire__crate__api__bitcoin_uri__ffi_buf_uri_parse =
+      _wire__crate__api__bitcoin_uri__ffi_buf_uri_parsePtr.asFunction<
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  WireSyncRust2DartDco wire__crate__api__simple__greet(
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
+  ) {
+    return _wire__crate__api__simple__greet(
+      name,
+    );
+  }
+
+  late final _wire__crate__api__simple__greetPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_buf_flutter_wire__crate__api__simple__greet');
+  late final _wire__crate__api__simple__greet =
+      _wire__crate__api__simple__greetPtr.asFunction<
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire__crate__api__simple__init_app(
+    int port_,
+  ) {
+    return _wire__crate__api__simple__init_app(
+      port_,
+    );
+  }
+
+  late final _wire__crate__api__simple__init_appPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'frbgen_buf_flutter_wire__crate__api__simple__init_app');
+  late final _wire__crate__api__simple__init_app =
+      _wire__crate__api__simple__init_appPtr.asFunction<void Function(int)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_bitcoin_uri_ffiuriUri(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_bitcoin_uri_ffiuriUri(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_bitcoin_uri_ffiuriUriPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_buf_flutter_rust_arc_increment_strong_count_RustOpaque_bitcoin_uri_ffiuriUri');
+  late final _rust_arc_increment_strong_count_RustOpaque_bitcoin_uri_ffiuriUri =
+      _rust_arc_increment_strong_count_RustOpaque_bitcoin_uri_ffiuriUriPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUri(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUri(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUriPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_buf_flutter_rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUri');
+  late final _rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUri =
+      _rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUriPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  ffi.Pointer<wire_cst_ffi_buf_uri> cst_new_box_autoadd_ffi_buf_uri() {
+    return _cst_new_box_autoadd_ffi_buf_uri();
+  }
+
+  late final _cst_new_box_autoadd_ffi_buf_uriPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_ffi_buf_uri> Function()>>(
+          'frbgen_buf_flutter_cst_new_box_autoadd_ffi_buf_uri');
+  late final _cst_new_box_autoadd_ffi_buf_uri =
+      _cst_new_box_autoadd_ffi_buf_uriPtr
+          .asFunction<ffi.Pointer<wire_cst_ffi_buf_uri> Function()>();
+
+  ffi.Pointer<ffi.Uint64> cst_new_box_autoadd_u_64(
+    int value,
+  ) {
+    return _cst_new_box_autoadd_u_64(
+      value,
+    );
+  }
+
+  late final _cst_new_box_autoadd_u_64Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint64> Function(ffi.Uint64)>>(
+          'frbgen_buf_flutter_cst_new_box_autoadd_u_64');
+  late final _cst_new_box_autoadd_u_64 = _cst_new_box_autoadd_u_64Ptr
+      .asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_new_list_prim_u_8_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_u_8_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_u_8_strictPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(
+              ffi.Int32)>>('frbgen_buf_flutter_cst_new_list_prim_u_8_strict');
+  late final _cst_new_list_prim_u_8_strict = _cst_new_list_prim_u_8_strictPtr
+      .asFunction<ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(int)>();
+
+  int dummy_method_to_enforce_bundling() {
+    return _dummy_method_to_enforce_bundling();
+  }
+
+  late final _dummy_method_to_enforce_bundlingPtr =
+      _lookup<ffi.NativeFunction<ffi.Int64 Function()>>(
+          'dummy_method_to_enforce_bundling');
+  late final _dummy_method_to_enforce_bundling =
+      _dummy_method_to_enforce_bundlingPtr.asFunction<int Function()>();
+}
+
+typedef DartPort = ffi.Int64;
+typedef DartDartPort = int;
+typedef DartPostCObjectFnTypeFunction = ffi.Bool Function(
+    DartPort port_id, ffi.Pointer<ffi.Void> message);
+typedef DartDartPostCObjectFnTypeFunction = bool Function(
+    DartDartPort port_id, ffi.Pointer<ffi.Void> message);
+typedef DartPostCObjectFnType
+    = ffi.Pointer<ffi.NativeFunction<DartPostCObjectFnTypeFunction>>;
+
+final class wire_cst_ffi_buf_uri extends ffi.Struct {
+  @ffi.UintPtr()
+  external int field0;
+}
+
+final class wire_cst_list_prim_u_8_strict extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
 }

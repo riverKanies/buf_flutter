@@ -4,6 +4,7 @@
 // Section: imports
 
 use super::*;
+use crate::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -11,3 +12,165 @@ use flutter_rust_bridge::{Handler, IntoIntoDart};
 // Section: boilerplate
 
 flutter_rust_bridge::frb_generated_boilerplate_io!();
+
+// Section: dart2rust
+
+impl CstDecode<RustOpaqueNom<bitcoin_uri_ffi::uri::Uri>> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> RustOpaqueNom<bitcoin_uri_ffi::uri::Uri> {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl CstDecode<String> for *mut wire_cst_list_prim_u_8_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> String {
+        let vec: Vec<u8> = self.cst_decode();
+        String::from_utf8(vec).unwrap()
+    }
+}
+impl CstDecode<crate::api::bitcoin_uri::FfiBufUri> for *mut wire_cst_ffi_buf_uri {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bitcoin_uri::FfiBufUri {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::bitcoin_uri::FfiBufUri>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<u64> for *mut u64 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u64 {
+        unsafe { *flutter_rust_bridge::for_generated::box_from_leak_ptr(self) }
+    }
+}
+impl CstDecode<crate::api::bitcoin_uri::FfiBufUri> for wire_cst_ffi_buf_uri {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::bitcoin_uri::FfiBufUri {
+        crate::api::bitcoin_uri::FfiBufUri(self.field0.cst_decode())
+    }
+}
+impl CstDecode<Vec<u8>> for *mut wire_cst_list_prim_u_8_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u8> {
+        unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        }
+    }
+}
+impl NewWithNullPtr for wire_cst_ffi_buf_uri {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            field0: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_ffi_buf_uri {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_address(
+    that: *mut wire_cst_ffi_buf_uri,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__bitcoin_uri__ffi_buf_uri_address_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_sats(
+    that: *mut wire_cst_ffi_buf_uri,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_sats_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_as_string(
+    that: *mut wire_cst_ffi_buf_uri,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__bitcoin_uri__ffi_buf_uri_as_string_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_label(
+    that: *mut wire_cst_ffi_buf_uri,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__bitcoin_uri__ffi_buf_uri_label_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_message(
+    that: *mut wire_cst_ffi_buf_uri,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__bitcoin_uri__ffi_buf_uri_message_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_wire__crate__api__bitcoin_uri__ffi_buf_uri_parse(
+    uri: *mut wire_cst_list_prim_u_8_strict,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__bitcoin_uri__ffi_buf_uri_parse_impl(uri)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_wire__crate__api__simple__greet(
+    name: *mut wire_cst_list_prim_u_8_strict,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__simple__greet_impl(name)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_wire__crate__api__simple__init_app(port_: i64) {
+    wire__crate__api__simple__init_app_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_rust_arc_increment_strong_count_RustOpaque_bitcoin_uri_ffiuriUri(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<bitcoin_uri_ffi::uri::Uri>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUri(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<bitcoin_uri_ffi::uri::Uri>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_cst_new_box_autoadd_ffi_buf_uri() -> *mut wire_cst_ffi_buf_uri
+{
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_ffi_buf_uri::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_cst_new_box_autoadd_u_64(value: u64) -> *mut u64 {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_buf_flutter_cst_new_list_prim_u_8_strict(
+    len: i32,
+) -> *mut wire_cst_list_prim_u_8_strict {
+    let ans = wire_cst_list_prim_u_8_strict {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+}
+
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_ffi_buf_uri {
+    field0: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_prim_u_8_strict {
+    ptr: *mut u8,
+    len: i32,
+}

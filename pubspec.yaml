@@ -39,6 +39,7 @@ dependencies:
   flutter_rust_bridge: 2.0.0
 
 dev_dependencies:
+  ffigen: ^16.1.0
   flutter_test:
     sdk: flutter
 

@@ -3,24 +3,26 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/bitcoin_uri.dart';
 import 'api/simple.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
 import 'frb_generated.io.dart'
     if (dart.library.js_interop) 'frb_generated.web.dart';
+import 'lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 /// Main entrypoint of the Rust API
-class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
+class core extends BaseEntrypoint<coreApi, coreApiImpl, coreWire> {
   @internal
-  static final instance = RustLib._();
+  static final instance = core._();
 
-  RustLib._();
+  core._();
 
   /// Initialize flutter_rust_bridge
   static Future<void> init({
-    RustLibApi? api,
+    coreApi? api,
     BaseHandler? handler,
     ExternalLibrary? externalLibrary,
   }) async {
@@ -38,12 +40,11 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   static void dispose() => instance.disposeImpl();
 
   @override
-  ApiImplConstructor<RustLibApiImpl, RustLibWire> get apiImplConstructor =>
-      RustLibApiImpl.new;
+  ApiImplConstructor<coreApiImpl, coreWire> get apiImplConstructor =>
+      coreApiImpl.new;
 
   @override
-  WireConstructor<RustLibWire> get wireConstructor =>
-      RustLibWire.fromExternalLibrary;
+  WireConstructor<coreWire> get wireConstructor => coreWire.fromExternalLibrary;
 
   @override
   Future<void> executeRustInitializers() async {
@@ -58,7 +59,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.0.0';
 
   @override
-  int get rustContentHash => -1918914929;
+  int get rustContentHash => 1571996010;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -68,14 +69,32 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   );
 }
 
-abstract class RustLibApi extends BaseApi {
+abstract class coreApi extends BaseApi {
+  String crateApiBitcoinUriFfiBufUriAddress({required FfiBufUri that});
+
+  BigInt? crateApiBitcoinUriFfiBufUriAmountSats({required FfiBufUri that});
+
+  String crateApiBitcoinUriFfiBufUriAsString({required FfiBufUri that});
+
+  String? crateApiBitcoinUriFfiBufUriLabel({required FfiBufUri that});
+
+  String? crateApiBitcoinUriFfiBufUriMessage({required FfiBufUri that});
+
+  FfiBufUri crateApiBitcoinUriFfiBufUriParse({required String uri});
+
   String crateApiSimpleGreet({required String name});
 
   Future<void> crateApiSimpleInitApp();
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Uri;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Uri;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_UriPtr;
 }
 
-class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
-  RustLibApiImpl({
+class coreApiImpl extends coreApiImplPlatform implements coreApi {
+  coreApiImpl({
     required super.handler,
     required super.wire,
     required super.generalizedFrbRustBinding,
@@ -83,15 +102,153 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
+  String crateApiBitcoinUriFfiBufUriAddress({required FfiBufUri that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_ffi_buf_uri(that);
+        return wire.wire__crate__api__bitcoin_uri__ffi_buf_uri_address(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiBitcoinUriFfiBufUriAddressConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiBitcoinUriFfiBufUriAddressConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffi_buf_uri_address",
+        argNames: ["that"],
+      );
+
+  @override
+  BigInt? crateApiBitcoinUriFfiBufUriAmountSats({required FfiBufUri that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_ffi_buf_uri(that);
+        return wire
+            .wire__crate__api__bitcoin_uri__ffi_buf_uri_amount_sats(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_opt_box_autoadd_u_64,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiBitcoinUriFfiBufUriAmountSatsConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiBitcoinUriFfiBufUriAmountSatsConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffi_buf_uri_amount_sats",
+        argNames: ["that"],
+      );
+
+  @override
+  String crateApiBitcoinUriFfiBufUriAsString({required FfiBufUri that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_ffi_buf_uri(that);
+        return wire.wire__crate__api__bitcoin_uri__ffi_buf_uri_as_string(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiBitcoinUriFfiBufUriAsStringConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiBitcoinUriFfiBufUriAsStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffi_buf_uri_as_string",
+        argNames: ["that"],
+      );
+
+  @override
+  String? crateApiBitcoinUriFfiBufUriLabel({required FfiBufUri that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_ffi_buf_uri(that);
+        return wire.wire__crate__api__bitcoin_uri__ffi_buf_uri_label(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_opt_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiBitcoinUriFfiBufUriLabelConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiBitcoinUriFfiBufUriLabelConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffi_buf_uri_label",
+        argNames: ["that"],
+      );
+
+  @override
+  String? crateApiBitcoinUriFfiBufUriMessage({required FfiBufUri that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_ffi_buf_uri(that);
+        return wire.wire__crate__api__bitcoin_uri__ffi_buf_uri_message(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_opt_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiBitcoinUriFfiBufUriMessageConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiBitcoinUriFfiBufUriMessageConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffi_buf_uri_message",
+        argNames: ["that"],
+      );
+
+  @override
+  FfiBufUri crateApiBitcoinUriFfiBufUriParse({required String uri}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_String(uri);
+        return wire.wire__crate__api__bitcoin_uri__ffi_buf_uri_parse(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_ffi_buf_uri,
+        decodeErrorData: dco_decode_String,
+      ),
+      constMeta: kCrateApiBitcoinUriFfiBufUriParseConstMeta,
+      argValues: [uri],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiBitcoinUriFfiBufUriParseConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffi_buf_uri_parse",
+        argNames: ["uri"],
+      );
+
+  @override
   String crateApiSimpleGreet({required String name}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(name, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+        var arg0 = cst_encode_String(name);
+        return wire.wire__crate__api__simple__greet(arg0);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_String,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
         decodeErrorData: null,
       ),
       constMeta: kCrateApiSimpleGreetConstMeta,
@@ -109,12 +266,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   Future<void> crateApiSimpleInitApp() {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 2, port: port_);
+        return wire.wire__crate__api__simple__init_app(port_);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
         decodeErrorData: null,
       ),
       constMeta: kCrateApiSimpleInitAppConstMeta,
@@ -128,6 +283,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         argNames: [],
       );
 
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Uri =>
+      wire.rust_arc_increment_strong_count_RustOpaque_bitcoin_uri_ffiuriUri;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Uri =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_bitcoin_uri_ffiuriUri;
+
+  @protected
+  Uri dco_decode_RustOpaque_bitcoin_uri_ffiuriUri(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return UriImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
   @protected
   String dco_decode_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -135,9 +302,50 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FfiBufUri dco_decode_box_autoadd_ffi_buf_uri(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_ffi_buf_uri(raw);
+  }
+
+  @protected
+  BigInt dco_decode_box_autoadd_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_u_64(raw);
+  }
+
+  @protected
+  FfiBufUri dco_decode_ffi_buf_uri(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return FfiBufUri(
+      field0: dco_decode_RustOpaque_bitcoin_uri_ffiuriUri(arr[0]),
+    );
+  }
+
+  @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as Uint8List;
+  }
+
+  @protected
+  String? dco_decode_opt_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_String(raw);
+  }
+
+  @protected
+  BigInt? dco_decode_opt_box_autoadd_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_u_64(raw);
+  }
+
+  @protected
+  BigInt dco_decode_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeU64(raw);
   }
 
   @protected
@@ -153,6 +361,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  BigInt dco_decode_usize(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeU64(raw);
+  }
+
+  @protected
+  Uri sse_decode_RustOpaque_bitcoin_uri_ffiuriUri(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return UriImpl.frbInternalSseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_list_prim_u_8_strict(deserializer);
@@ -160,10 +382,57 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FfiBufUri sse_decode_box_autoadd_ffi_buf_uri(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_ffi_buf_uri(deserializer));
+  }
+
+  @protected
+  BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_u_64(deserializer));
+  }
+
+  @protected
+  FfiBufUri sse_decode_ffi_buf_uri(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_RustOpaque_bitcoin_uri_ffiuriUri(deserializer);
+    return FfiBufUri(field0: var_field0);
+  }
+
+  @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
     return deserializer.buffer.getUint8List(len_);
+  }
+
+  @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_String(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  BigInt? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_u_64(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  BigInt sse_decode_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getBigUint64();
   }
 
   @protected
@@ -175,6 +444,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @protected
   void sse_decode_unit(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  BigInt sse_decode_usize(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getBigUint64();
   }
 
   @protected
@@ -190,9 +465,55 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  int cst_encode_RustOpaque_bitcoin_uri_ffiuriUri(Uri raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return (raw as UriImpl).frbInternalCstEncode();
+  }
+
+  @protected
+  int cst_encode_u_8(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  void cst_encode_unit(void raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  void sse_encode_RustOpaque_bitcoin_uri_ffiuriUri(
+      Uri self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+        (self as UriImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
   void sse_encode_String(String self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_ffi_buf_uri(
+      FfiBufUri self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_ffi_buf_uri(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self, serializer);
+  }
+
+  @protected
+  void sse_encode_ffi_buf_uri(FfiBufUri self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_bitcoin_uri_ffiuriUri(self.field0, serializer);
   }
 
   @protected
@@ -201,6 +522,32 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     serializer.buffer.putUint8List(self);
+  }
+
+  @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_String(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_64(BigInt? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_u_64(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_u_64(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putBigUint64(self);
   }
 
   @protected
@@ -215,6 +562,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_usize(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putBigUint64(self);
+  }
+
+  @protected
   void sse_encode_i_32(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putInt32(self);
@@ -225,4 +578,24 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putUint8(self ? 1 : 0);
   }
+}
+
+@sealed
+class UriImpl extends RustOpaque implements Uri {
+  // Not to be used by end users
+  UriImpl.frbInternalDcoDecode(List<dynamic> wire)
+      : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  UriImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        core.instance.api.rust_arc_increment_strong_count_Uri,
+    rustArcDecrementStrongCount:
+        core.instance.api.rust_arc_decrement_strong_count_Uri,
+    rustArcDecrementStrongCountPtr:
+        core.instance.api.rust_arc_decrement_strong_count_UriPtr,
+  );
 }

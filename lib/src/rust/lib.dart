@@ -3,8 +3,8 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
-import '../frb_generated.dart';
+import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-String greet({required String name}) =>
-    core.instance.api.crateApiSimpleGreet(name: name);
+// Rust type: RustOpaqueNom<bitcoin_uri_ffi :: uri :: Uri>
+abstract class Uri implements RustOpaqueInterface {}
