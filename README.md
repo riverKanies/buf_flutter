@@ -20,12 +20,6 @@ ultimately I need to convert this from a dart app to a package similar to this t
 
 
 
-
-
-
-
-
-
 # old README
 A new Flutter project.
 
