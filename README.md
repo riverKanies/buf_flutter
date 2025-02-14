@@ -17,7 +17,18 @@ ultimately I need to convert this from a dart app to a package similar to this t
 
 
 
+# Usage
 
+Be sure to initialize the package
+
+```dart example of how to initialize the package
+import 'package:buf_flutter/src/config.dart';
+
+Future<void> main() async {
+  await BufConfig.initializeApp();
+  runApp(const MyApp());
+}
+```
 
 
 # old README

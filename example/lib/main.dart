@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'package:buf_flutter/src/rust/api/simple.dart';
-import 'package:buf_flutter/src/rust/frb_generated.dart';
+
 import 'package:buf_flutter/src/rust/api/bitcoin_uri.dart';
+import 'package:buf_flutter/src/config.dart';
 
 Future<void> main() async {
-  await core.init();
+  await BufConfig.initializeApp();
   runApp(const MyApp());
 }
 
